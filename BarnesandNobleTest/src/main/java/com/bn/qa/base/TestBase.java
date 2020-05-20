@@ -6,10 +6,8 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
@@ -32,6 +30,7 @@ public class TestBase {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	
@@ -39,18 +38,17 @@ public class TestBase {
 		String browserName = prop.getProperty("browser");
 		
 		if(browserName.equals("chrome")){
+			System.setProperty("webdriver.chrome.silentOutput", "true");
 			System.setProperty("webdriver.chrome.driver", "C:/Selenium/browserDrivers/chromedriver/chromedriver.exe");	
 			driver = new ChromeDriver(); 
 		}
 		else if(browserName.equals("FF")){
+			System.setProperty("webdriver.chrome.silentOutput", "true");
 			System.setProperty("webdriver.gecko.driver", "C:/Selenium/browserDrivers/geckodriver/geckodriver.exe");	
 			driver = new FirefoxDriver(); 
 		}
 		
-		ChromeOptions options = new ChromeOptions();
-		   System.setProperty("webdriver.chrome.args", "--disable-logging");
-		   System.setProperty("webdriver.chrome.silentOutput", "true");
-		   driver = new ChromeDriver(options);
+			   
 		   
 		e_driver = new EventFiringWebDriver(driver);
 		// Now create object of EventListerHandler to register it with EventFiringWebDriver

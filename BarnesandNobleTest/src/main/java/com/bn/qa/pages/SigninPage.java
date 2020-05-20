@@ -15,20 +15,22 @@ public class SigninPage extends TestBase{
 	@FindBy(id="signInLink")
 	WebElement signInLink;
 	
-	@FindBy(xpath="*[@id='dialog-title']")
+	@FindBy(xpath="//*[@id='dialog-title']")
 	WebElement dialogtitle;
 	
-		@FindBy(id="email")
+		
+		@FindBy(xpath="//*[contains(@id,'email')]")
 		WebElement email;
 		
-		@FindBy(id="password")
+		@FindBy(xpath="//*[@id='password']")
 		WebElement password;
 		
-		@FindBy(xpath="//input[@type='submit']")
+		@FindBy(xpath="//span[contains(text(),'Remember me') or @class='checkbox__box']")
+		WebElement remembermecheck;
+		
+		@FindBy(xpath="//*[@type='submit'][contains(text(),'Sign In')]")
 		WebElement signinBtn;
 		
-		@FindBy(xpath="//span[@class='checkbox__box']")
-		WebElement remembermecheck;
 		
 		
 		@FindBy(xpath="//a[contains(text(),'Create an account')]")
@@ -53,8 +55,9 @@ public class SigninPage extends TestBase{
 		
 		public String validateSigninPopupTitle(){
 			signInLink.click();
-		//	driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='Fill Quote']")));
-			driver.switchTo().frame(driver.findElement(By.xpath("//*[contains(@id,'frame')]")));
+			driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='Sign in or Create an Account']")));
+			
+			//driver.switchTo().frame(driver.findElement(By.tagName("iframe")));
 			
 			return dialogtitle.getText();
 		}
@@ -65,14 +68,19 @@ public class SigninPage extends TestBase{
 			return forgotpassword.isDisplayed();
 		}
 		
+		public boolean validatecheckbox(){
+			signInLink.click();
+			TestUtil.switchToFrame();
+			return remembermecheck.isSelected();
+		}
 		public HomePage login(String un, String pwd){
 			
-			
 			signInLink.click();
-			
 			TestUtil.switchToFrame();
+								
 			email.sendKeys(un);
 			password.sendKeys(pwd);
+			remembermecheck.click();
 			//loginBtn.click();
 			    	JavascriptExecutor js = (JavascriptExecutor)driver;
 			    	js.executeScript("arguments[0].click();", signinBtn);

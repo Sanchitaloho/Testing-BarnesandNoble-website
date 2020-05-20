@@ -8,6 +8,7 @@
           <include name="tearDown"/>
           <include name="loginTest"/>
           <include name="setUp"/>
+          <include name="checkboxselectedTest"/>
         </methods>
       </class> <!-- com.bn.qa.testcases.SigninTest -->
     </classes>

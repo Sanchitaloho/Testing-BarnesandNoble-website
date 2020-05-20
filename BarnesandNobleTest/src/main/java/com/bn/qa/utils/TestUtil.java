@@ -4,22 +4,21 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-
 import com.bn.qa.base.TestBase;
 
 public class TestUtil extends TestBase {
 
-	public static long PAGE_LOAD_TIMEOUT = 20;
-	public static long IMPLICIT_WAIT = 20;
+	public static long PAGE_LOAD_TIMEOUT = 30;
+	public static long IMPLICIT_WAIT = 30;
 
 	public static String TESTDATA_SHEET_PATH = "/Users/sanchita/Documents/workspace"
 			+ "/BarnesnobleTest/src/main/java/com/crm/qa/testdata/BNTestData.xlsx";
@@ -29,7 +28,14 @@ public class TestUtil extends TestBase {
 	static JavascriptExecutor js;
 
 	public static void switchToFrame() {
-		driver.switchTo().frame(0);
+		//driver.switchTo().frame(0);
+		// Based on index position:
+		/*int frameIndex = 0;
+		List<WebElement> listFrames = driver.findElements(By.tagName("iframe"));
+		System.out.println("list frames   "+listFrames.size());
+		/driver.switchTo().frame(listFrames.get( frameIndex ));*/
+		
+		driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[title='Sign in or Create an Account']")));
 	}
 
 	public static Object[][] getTestData(String sheetName) throws InvalidFormatException {
